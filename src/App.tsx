@@ -442,35 +442,18 @@ function App() {
             <Stack spacing={2}>
               <FormControl fullWidth>
                 <FormLabel id="repeat-type-label">반복 유형</FormLabel>
-                {process.env.NODE_ENV === 'test' ? (
-                  // 테스트 환경에서는 기본 HTML <select>를 직접 렌더하여
-                  // testing-library가 실제 select.value를 읽을 수 있게 합니다.
-                  <select
-                    aria-label="반복 유형"
-                    aria-labelledby="repeat-type-label"
-                    value={repeatType === 'none' ? 'daily' : repeatType}
-                    onChange={(e) => setRepeatType(e.target.value as any)}
-                    size={1}
-                  >
-                    <option value="daily">매일</option>
-                    <option value="weekly">매주</option>
-                    <option value="monthly">매월</option>
-                    <option value="yearly">매년</option>
-                  </select>
-                ) : (
-                  <Select
-                    size="small"
-                    value={repeatType === 'none' ? 'daily' : repeatType}
-                    onChange={(e) => setRepeatType(e.target.value as any)}
-                    aria-label="반복 유형"
-                    aria-labelledby="repeat-type-label"
-                  >
-                    <MenuItem value="daily">매일</MenuItem>
-                    <MenuItem value="weekly">매주</MenuItem>
-                    <MenuItem value="monthly">매월</MenuItem>
-                    <MenuItem value="yearly">매년</MenuItem>
-                  </Select>
-                )}
+                <Select
+                  size="small"
+                  value={repeatType === 'none' ? 'daily' : repeatType}
+                  onChange={(e) => setRepeatType(e.target.value as any)}
+                  aria-label="반복 유형"
+                  aria-labelledby="repeat-type-label"
+                >
+                  <MenuItem value="daily">매일</MenuItem>
+                  <MenuItem value="weekly">매주</MenuItem>
+                  <MenuItem value="monthly">매월</MenuItem>
+                  <MenuItem value="yearly">매년</MenuItem>
+                </Select>
               </FormControl>
               <Stack direction="row" spacing={2}>
                 <FormControl fullWidth>
