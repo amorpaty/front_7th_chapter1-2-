@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
 
@@ -17,16 +16,18 @@ import CssBaseline from '@mui/material/CssBaseline';
 import App from '../../App';
 
 // 테스트 환경에서 아이콘 로드를 줄이기 위해 아이콘을 목(Mock)합니다.
-// 다음은 테스트 렌더 래퍼입니다.
 const theme = createTheme();
 
+// 재사용 가능한 Wrapper 컴포넌트로 render를 간결하게 사용합니다.
+const ThemeWrapper = ({ children }: { children?: React.ReactNode }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    {children}
+  </ThemeProvider>
+);
+
 function WrappedRender(ui: React.ReactElement) {
-  return render(
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {ui}
-    </ThemeProvider>
-  );
+  return render(ui, { wrapper: ThemeWrapper });
 }
 
 describe('1-1 Red: Repeat model defaults (반복 모델 기본값)', () => {
