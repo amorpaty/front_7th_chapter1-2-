@@ -30,6 +30,8 @@ vi.mock('../../hooks/useEventForm.ts', () => ({
     setRepeatType: () => {},
     repeatInterval: 1,
     setRepeatInterval: () => {},
+  repeatWeekdays: [],
+  setRepeatWeekdays: () => {},
     // 의도적으로 값이 있는 상태로 만들어 Red를 만듭니다
     repeatEndDate: '2025-12-31',
     setRepeatEndDate: () => {},

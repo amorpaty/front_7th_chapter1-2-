@@ -28,6 +28,8 @@ vi.mock('../../hooks/useEventForm.ts', () => ({
     setIsRepeating: () => {},
     repeatType: 'daily',
     setRepeatType: () => {},
+    repeatWeekdays: [],
+    setRepeatWeekdays: () => {},
   // 그린 단계로 전환하기 위해 기본값을 1로 설정합니다
   repeatInterval: 1,
     setRepeatInterval: () => {},

@@ -30,6 +30,8 @@ vi.mock('../../hooks/useEventForm.ts', () => ({
     setIsRepeating: () => {},
     repeatType: 'none',
     setRepeatType: () => {},
+  repeatWeekdays: [],
+  setRepeatWeekdays: () => {},
     repeatInterval: 1,
     setRepeatInterval: () => {},
     repeatEndDate: '',
