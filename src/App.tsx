@@ -27,6 +27,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
+import RepeatFields from './components/RepeatFields';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 
@@ -439,44 +440,14 @@ function App() {
 
           {/* 반복 UI (테스트 및 향후 기능을 위해 노출) */}
           {isRepeating && (
-            <Stack spacing={2}>
-              <FormControl fullWidth>
-                <FormLabel id="repeat-type-label">반복 유형</FormLabel>
-                <Select
-                  size="small"
-                  value={repeatType === 'none' ? 'daily' : repeatType}
-                  onChange={(e) => setRepeatType(e.target.value as any)}
-                  aria-label="반복 유형"
-                  aria-labelledby="repeat-type-label"
-                >
-                  <MenuItem value="daily">매일</MenuItem>
-                  <MenuItem value="weekly">매주</MenuItem>
-                  <MenuItem value="monthly">매월</MenuItem>
-                  <MenuItem value="yearly">매년</MenuItem>
-                </Select>
-              </FormControl>
-              <Stack direction="row" spacing={2}>
-                <FormControl fullWidth>
-                  <FormLabel>반복 간격</FormLabel>
-                  <TextField
-                    size="small"
-                    type="number"
-                    value={repeatInterval}
-                    onChange={(e) => setRepeatInterval(Number(e.target.value))}
-                    slotProps={{ htmlInput: { min: 1 } }}
-                  />
-                </FormControl>
-                <FormControl fullWidth>
-                  <FormLabel>반복 종료일</FormLabel>
-                  <TextField
-                    size="small"
-                    type="date"
-                    value={repeatEndDate}
-                    onChange={(e) => setRepeatEndDate(e.target.value)}
-                  />
-                </FormControl>
-              </Stack>
-            </Stack>
+            <RepeatFields
+              repeatType={repeatType}
+              setRepeatType={setRepeatType}
+              repeatInterval={repeatInterval}
+              setRepeatInterval={setRepeatInterval}
+              repeatEndDate={repeatEndDate}
+              setRepeatEndDate={setRepeatEndDate}
+            />
           )}
 
           <Button
