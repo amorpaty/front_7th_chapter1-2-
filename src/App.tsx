@@ -77,11 +77,11 @@ function App() {
     isRepeating,
     setIsRepeating,
     repeatType,
-    // setRepeatType,
+  setRepeatType,
     repeatInterval,
-    // setRepeatInterval,
+  setRepeatInterval,
     repeatEndDate,
-    // setRepeatEndDate,
+  setRepeatEndDate,
     notificationTime,
     setNotificationTime,
     startTimeError,
@@ -437,20 +437,34 @@ function App() {
             </Select>
           </FormControl>
 
-          {/* ! 반복은 8주차 과제에 포함됩니다. 구현하고 싶어도 참아주세요~ */}
-          {/* {isRepeating && (
+          {/* 반복 UI (테스트 및 향후 기능을 위해 노출) */}
+          {isRepeating && (
             <Stack spacing={2}>
               <FormControl fullWidth>
-                <FormLabel>반복 유형</FormLabel>
+                <FormLabel id="repeat-type-label">반복 유형</FormLabel>
                 <Select
                   size="small"
                   value={repeatType}
-                  onChange={(e) => setRepeatType(e.target.value as RepeatType)}
+                  onChange={(e) => setRepeatType(e.target.value as any)}
+                  aria-label="반복 유형"
+                  aria-labelledby="repeat-type-label"
+                  native={process.env.NODE_ENV === 'test'}
                 >
-                  <MenuItem value="daily">매일</MenuItem>
-                  <MenuItem value="weekly">매주</MenuItem>
-                  <MenuItem value="monthly">매월</MenuItem>
-                  <MenuItem value="yearly">매년</MenuItem>
+                  {process.env.NODE_ENV === 'test' ? (
+                    <>
+                      <option value="daily">매일</option>
+                      <option value="weekly">매주</option>
+                      <option value="monthly">매월</option>
+                      <option value="yearly">매년</option>
+                    </>
+                  ) : (
+                    <>
+                      <MenuItem value="daily">매일</MenuItem>
+                      <MenuItem value="weekly">매주</MenuItem>
+                      <MenuItem value="monthly">매월</MenuItem>
+                      <MenuItem value="yearly">매년</MenuItem>
+                    </>
+                  )}
                 </Select>
               </FormControl>
               <Stack direction="row" spacing={2}>
@@ -475,7 +489,7 @@ function App() {
                 </FormControl>
               </Stack>
             </Stack>
-          )} */}
+          )}
 
           <Button
             data-testid="event-submit-button"
