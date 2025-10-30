@@ -43,9 +43,8 @@ describe('Red: useEventForm 기본 repeat값 검증 (훅 레벨)', () => {
     expect(typeNode).toBeInTheDocument();
     expect(intervalNode).toBeInTheDocument();
 
-    // (의도적) Red 상태를 만들기 위해 잘못된 기대값을 사용합니다.
-    // 이 테스트는 실패하여 Red 단계가 되도록 설계되었습니다.
-    expect(typeNode.textContent).toBe('daily');
-    expect(intervalNode.textContent).toBe('2');
+    // Green 단계: 올바른 기대값으로 수정하여 테스트가 통과하도록 합니다.
+    expect(typeNode.textContent).toBe('none');
+    expect(intervalNode.textContent).toBe('1');
   });
 });
