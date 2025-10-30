@@ -68,11 +68,12 @@ describe('1-3 Red: 반복 유형의 기본값 (UI)', () => {
     const checkbox = screen.getByLabelText('반복 일정');
     await user.click(checkbox);
 
-    // '반복 유형' Select 요소를 찾아 기본값을 확인
-    const select = screen.getByLabelText('반복 유형') as HTMLSelectElement;
-    expect(select).toBeInTheDocument();
+  // '반복 유형' Select 요소를 찾아 기본값을 확인
+  const selectWrapper = screen.getByLabelText('반복 유형') as HTMLElement;
+  const nativeSelect = selectWrapper.querySelector('select') as HTMLSelectElement;
+  expect(nativeSelect).toBeInTheDocument();
 
-    // 의도적으로 실패하도록 'daily'를 기대합니다.
-    expect(select.value).toBe('daily');
+  // 의도적으로 실패하도록 'daily'를 기대합니다.
+  expect(nativeSelect.value).toBe('daily');
   });
 });

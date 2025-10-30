@@ -51,9 +51,11 @@ describe('red 1-7: 제출 시 반복 정보가 포함되어 저장되는지', ()
     const repeatToggle = screen.getByRole('checkbox', { name: /반복 여부/i })
     await user.click(repeatToggle)
 
-    // 반복 유형 / 간격 / 종료일 설정
-    const repeatType = screen.getByLabelText('반복 유형') as HTMLSelectElement
-    await user.selectOptions(repeatType, 'weekly')
+  // 반복 유형 / 간격 / 종료일 설정
+  const repeatTypeContainer = screen.getByLabelText('반복 유형') as HTMLElement;
+  const nativeRepeatSelect = repeatTypeContainer.querySelector('select') as HTMLSelectElement;
+  // MockSelect exposes a native select internally in tests; set its value directly
+  fireEvent.change(nativeRepeatSelect, { target: { value: 'weekly' } });
 
     const interval = screen.getByLabelText('반복 간격') as HTMLInputElement
     await user.clear(interval)

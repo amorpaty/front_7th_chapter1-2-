@@ -206,12 +206,13 @@ function App() {
                             <Stack direction="row" spacing={1} alignItems="center">
                               {isNotified && <Notifications fontSize="small" />}
                               <Typography
-                                variant="caption"
-                                noWrap
-                                sx={{ fontSize: '0.75rem', lineHeight: 1.2 }}
-                              >
-                                {event.title}
-                              </Typography>
+                                  component="span"
+                                  variant="caption"
+                                  noWrap
+                                  sx={{ fontSize: '0.75rem', lineHeight: 1.2 }}
+                                >
+                                  {event.title}
+                                </Typography>
                             </Stack>
                           </Box>
                         );
@@ -293,6 +294,7 @@ function App() {
                                   <Stack direction="row" spacing={1} alignItems="center">
                                     {isNotified && <Notifications fontSize="small" />}
                                     <Typography
+                                      component="span"
                                       variant="caption"
                                       noWrap
                                       sx={{ fontSize: '0.75rem', lineHeight: 1.2 }}
@@ -517,10 +519,11 @@ function App() {
             filteredEvents.map((event) => (
               <Box key={event.id} sx={{ border: 1, borderRadius: 2, p: 3, width: '100%' }}>
                 <Stack direction="row" justifyContent="space-between">
-                  <Stack>
+                      <Stack>
                     <Stack direction="row" spacing={1} alignItems="center">
                       {notifiedEvents.includes(event.id) && <Notifications color="error" />}
                       <Typography
+                        component="div"
                         fontWeight={notifiedEvents.includes(event.id) ? 'bold' : 'normal'}
                         color={notifiedEvents.includes(event.id) ? 'error' : 'inherit'}
                       >
@@ -572,16 +575,16 @@ function App() {
       <Dialog open={isOverlapDialogOpen} onClose={() => setIsOverlapDialogOpen(false)}>
         <DialogTitle>일정 겹침 경고</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            다음 일정과 겹칩니다:
-            {overlappingEvents.map((event) => (
-              <Typography key={event.id}>
-                {event.title} ({event.date} {event.startTime}-{event.endTime})
-              </Typography>
-            ))}
-            계속 진행하시겠습니까?
-          </DialogContentText>
-        </DialogContent>
+            <DialogContentText component="div">
+              다음 일정과 겹칩니다:
+              {overlappingEvents.map((event) => (
+                <Typography key={event.id} component="div">
+                  {event.title} ({event.date} {event.startTime}-{event.endTime})
+                </Typography>
+              ))}
+              계속 진행하시겠습니까?
+            </DialogContentText>
+          </DialogContent>
         <DialogActions>
           <Button onClick={() => setIsOverlapDialogOpen(false)}>취소</Button>
           <Button

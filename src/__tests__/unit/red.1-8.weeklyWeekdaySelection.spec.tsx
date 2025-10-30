@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, within } from '@testing-library/react'
+import { render, screen, within, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -36,9 +36,10 @@ describe('red 1-8: weekly 요일 선택 UI', () => {
     const repeatToggle = screen.getByRole('checkbox', { name: /반복 여부/i })
     await user.click(repeatToggle)
 
-    // 반복 유형을 'weekly'로 설정
-    const repeatType = screen.getByLabelText('반복 유형') as HTMLSelectElement
-    await user.selectOptions(repeatType, 'weekly')
+  // 반복 유형을 'weekly'로 설정
+  const repeatTypeContainer = screen.getByLabelText('반복 유형') as HTMLElement;
+  const nativeRepeatSelect = repeatTypeContainer.querySelector('select') as HTMLSelectElement;
+  fireEvent.change(nativeRepeatSelect, { target: { value: 'weekly' } });
 
     // 요일 선택 UI(그룹)가 보여야 함
     const group = screen.getByRole('group', { name: /요일 선택/i })

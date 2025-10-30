@@ -26,22 +26,48 @@ vi.mock('@mui/material', async () => {
   const React = await import('react');
 
   const MockSelect = ({ value, onChange, children, ...rest }: any) => {
+    // 테스트에서 getByRole('combobox') 를 기대하는 경우가 있어,
+    // native select만 노출하면 combobox 역할을 찾지 못하는 상황이 발생합니다.
+    // 따라서 외부 컨테이너에 role="combobox"를 부여하고 내부에 native select를
+    // 둬서 option 요소는 유지하면서 combobox 쿼리가 동작하도록 합니다.
+    const options = React.Children.map(children, (child: any) => {
+      const props = (child as any)?.props;
+      if (React.isValidElement(child) && props && 'value' in props) {
+        // Preserve aria-label (e.g., MenuItem aria-label="업무-option") to make
+        // option selectable by name in tests that expect aria labels on options.
+        // Also, use the aria-label as the option's visible text when present so
+        // getByRole('option', { name: '...' }) reliably matches in jsdom.
+        const optionProps: any = { value: props.value };
+        if (props['aria-label']) optionProps['aria-label'] = props['aria-label'];
+        const labelForOption = props['aria-label'] ?? props.children;
+  // Attach an onClick so user.click on the option triggers the Select's
+  // onChange handler in jsdom (some user-event flows click the option
+  // element directly rather than changing the native select value).
+  optionProps.onClick = () => onChange && onChange({ target: { value: props.value } });
+  return React.createElement('option', optionProps, labelForOption);
+      }
+      return child;
+    });
+
+    // Outer wrapper receives the accessible label (so getByLabelText returns this wrapper),
+    // the inner native <select> is visible and has role="combobox" so both integration
+    // and unit tests can interact with it reliably.
     return React.createElement(
-      'select',
+      'div',
       {
-        'data-mock-select': 'true',
-        value,
-        onChange: (e: any) => onChange && onChange({ target: { value: e.target.value } }),
+        'data-mock-select-wrapper': 'true',
         ...rest,
       },
-      React.Children.map(children, (child: any) => {
-        // MenuItem으로 전달된 경우도 포함해 value/children를 option으로 렌더
-        const props = (child as any)?.props;
-        if (React.isValidElement(child) && props && 'value' in props) {
-          return React.createElement('option', { value: props.value }, props.children);
-        }
-        return child;
-      })
+      React.createElement(
+        'select',
+        {
+          role: 'combobox',
+          'data-mock-select': 'true',
+          value,
+          onChange: (e: any) => onChange && onChange({ target: { value: e.target.value } }),
+        },
+        options
+      )
     );
   };
 
