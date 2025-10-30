@@ -416,6 +416,7 @@ function App() {
                 <Checkbox
                   checked={isRepeating}
                   onChange={(e) => setIsRepeating(e.target.checked)}
+                  inputProps={{ 'aria-label': '반복 여부' }}
                 />
               }
               label="반복 일정"
