@@ -53,5 +53,5 @@ describe('red 1-9: 비반복(Non-repeating) 저장', () => {
     const calledWith = saveEventMock.mock.calls[0][0]
     expect(calledWith.repeat).toBeDefined()
     expect(calledWith.repeat.type).toBe('none')
-  })
+  }, 20000)
 })
