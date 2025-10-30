@@ -28,8 +28,8 @@ vi.mock('../../hooks/useEventForm.ts', () => ({
     setIsRepeating: () => {},
     repeatType: 'daily',
     setRepeatType: () => {},
-    // 의도적으로 2로 설정하여 Red 상태를 만듭니다
-    repeatInterval: 2,
+  // 그린 단계로 전환하기 위해 기본값을 1로 설정합니다
+  repeatInterval: 1,
     setRepeatInterval: () => {},
     repeatEndDate: '',
     setRepeatEndDate: () => {},
