@@ -1,5 +1,14 @@
 import React from 'react';
-import { FormControl, FormLabel, Select, MenuItem, Stack, TextField } from '@mui/material';
+import {
+  FormControl,
+  FormLabel,
+  Select,
+  MenuItem,
+  Stack,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+} from '@mui/material';
 
 type Props = {
   repeatType: string;
@@ -8,6 +17,8 @@ type Props = {
   setRepeatInterval: (v: number) => void;
   repeatEndDate: string;
   setRepeatEndDate: (v: string) => void;
+  repeatWeekdays: number[];
+  setRepeatWeekdays: (v: number[]) => void;
 };
 
 export default function RepeatFields({
@@ -17,6 +28,8 @@ export default function RepeatFields({
   setRepeatInterval,
   repeatEndDate,
   setRepeatEndDate,
+  repeatWeekdays,
+  setRepeatWeekdays,
 }: Props) {
   return (
     <Stack spacing={2}>
@@ -59,6 +72,29 @@ export default function RepeatFields({
           />
         </FormControl>
       </Stack>
+      {repeatType === 'weekly' && (
+        <Stack direction="row" spacing={1} role="group" aria-label="요일 선택">
+          {['일', '월', '화', '수', '목', '금', '토'].map((name, i) => (
+            <FormControlLabel
+              key={name}
+              control={
+                <Checkbox
+                  checked={repeatWeekdays.includes(i)}
+                  onChange={() => {
+                    if (repeatWeekdays.includes(i)) {
+                      setRepeatWeekdays(repeatWeekdays.filter((d) => d !== i));
+                    } else {
+                      setRepeatWeekdays([...repeatWeekdays, i]);
+                    }
+                  }}
+                  inputProps={{ 'aria-label': `weekday-${name}` }}
+                />
+              }
+              label={name}
+            />
+          ))}
+        </Stack>
+      )}
     </Stack>
   );
 }

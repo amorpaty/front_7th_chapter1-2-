@@ -83,6 +83,8 @@ function App() {
   setRepeatInterval,
     repeatEndDate,
   setRepeatEndDate,
+    repeatWeekdays,
+  setRepeatWeekdays,
     notificationTime,
     setNotificationTime,
     startTimeError,
@@ -132,6 +134,7 @@ function App() {
         type: isRepeating ? repeatType : 'none',
         interval: repeatInterval,
         endDate: repeatEndDate || undefined,
+        weekdays: isRepeating ? repeatWeekdays : undefined,
       },
       notificationTime,
     };
@@ -448,6 +451,8 @@ function App() {
               setRepeatInterval={setRepeatInterval}
               repeatEndDate={repeatEndDate}
               setRepeatEndDate={setRepeatEndDate}
+              repeatWeekdays={repeatWeekdays}
+              setRepeatWeekdays={setRepeatWeekdays}
             />
           )}
 
@@ -596,6 +601,7 @@ function App() {
                   type: isRepeating ? repeatType : 'none',
                   interval: repeatInterval,
                   endDate: repeatEndDate || undefined,
+                  weekdays: isRepeating ? repeatWeekdays : undefined,
                 },
                 notificationTime,
               });
